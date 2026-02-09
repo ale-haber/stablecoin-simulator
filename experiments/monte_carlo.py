@@ -100,12 +100,58 @@ def run_monte_carlo_stress_test(
         mean_max_drawdown=mean_drawdown
     )
 
+
+def plot_monte_carlo_heatmap(results: MonteCarloResults, save_path: str = None):
+    """
+    Plot 2D heatmap of collapse probability.
+    """
+    import matplotlib.pyplot as plt
+    
+    # Extract parameter names and values
+    param_names = list(results.parameter_grid.keys())
+    if len(param_names) != 2:
+        print("Heatmap requires exactly 2 parameters.")
+        return
+        
+    p1_name, p2_name = param_names
+    p1_vals = results.parameter_grid[p1_name]
+    p2_vals = results.parameter_grid[p2_name]
+    
+    # Create heatmap
+    plt.figure(figsize=(10, 8))
+    plt.imshow(
+        results.collapse_probabilities.T, 
+        extent=[p1_vals.min(), p1_vals.max(), p2_vals.min(), p2_vals.max()],
+        origin='lower',
+        aspect='auto',
+        cmap='RdYlGn_r', # Red = High Collapse Prob (Bad), Green = Low (Good)
+        alpha=0.8
+    )
+    plt.colorbar(label='Collapse Probability')
+    plt.xlabel(p1_name)
+    plt.ylabel(p2_name)
+    plt.title(f'Stability Heatmap: {p1_name} vs {p2_name}')
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"Heatmap saved to {save_path}")
+
 if __name__ == "__main__":
     base_params = SystemParameters()
+    
+    # 2D Sweep: Demand Elasticity vs Mint Coefficient
+    # "Which combination is safe?"
     results = run_monte_carlo_stress_test(
-        param_ranges={'liquidity_depth': (1e5, 2e6)},
-        n_trials=5, # Low for quick test
+        param_ranges={
+            'demand_elasticity': (0.1, 5.0),
+            'mint_coefficient': (0.01, 1.0)
+        },
+        n_trials=10, 
         base_params=base_params,
         n_steps=500
     )
     print("Monte Carlo test completed.")
+    
+    import os
+    os.makedirs("results/plots", exist_ok=True)
+    plot_monte_carlo_heatmap(results, save_path="results/plots/monte_carlo_heatmap.png")

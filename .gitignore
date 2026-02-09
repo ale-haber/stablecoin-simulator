@@ -77,3 +77,4 @@ results/data/*.csv
 .Trashes
 ehthumbs.db
 Thumbs.db
+.claude

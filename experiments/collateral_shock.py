@@ -170,7 +170,7 @@ if __name__ == "__main__":
     params = SystemParameters()
     
     results = run_collateral_shock_experiment(
-        shock_magnitude=-0.3,  # 30% collateral drop
+        shock_magnitude=-0.4,  # 40% collateral drop (Testing Breakpoint)
         shock_time=100,
         params=params,
         n_steps=1000

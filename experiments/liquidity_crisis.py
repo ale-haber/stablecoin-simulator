@@ -86,7 +86,7 @@ def run_liquidity_crisis_experiment(
 if __name__ == "__main__":
     params = SystemParameters()
     results = run_liquidity_crisis_experiment(
-        liquidity_shock_magnitude=-0.5,
+        liquidity_shock_magnitude=-0.9, # 90% liquidity dry-up (Rug Pull)
         shock_time=100,
         params=params,
         n_steps=1000
