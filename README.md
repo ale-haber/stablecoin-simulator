@@ -232,6 +232,7 @@ stablecoin-simulator/
 │   └── test_dynamics.py     # Unit tests
 ├── requirements.txt
 ├── README.md
+├── LICENSE
 └── .gitignore
 ```
 
