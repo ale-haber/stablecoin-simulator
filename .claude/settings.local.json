@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(python -m experiments.collateral_shock:*)",
+      "Bash(python -m experiments.liquidity_crisis:*)",
+      "Bash(python:*)"
+    ]
+  }
+}
