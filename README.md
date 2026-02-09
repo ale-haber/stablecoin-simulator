@@ -1,5 +1,7 @@
 # Formal Economic Simulator for Algorithmic Stablecoins
 
+![Formal Economic Simulator for Algorithmic Stablecoins](assets/cover-image.png)
+
 A rigorous, research-grade simulation framework to study systemic stability, feedback loops, and failure modes of algorithmic stablecoins under adversarial market conditions.
 
 ## Project Overview
